@@ -9,7 +9,7 @@ win1.title("Log in")
 win1.geometry('1000x600')
 win1.maxsize(1000, 600)
 win1.minsize(1000, 600)
-photo2 = PhotoImage(file="logo4.png")
+photo2 = PhotoImage(file="images/logo4.png")
 win1.iconphoto(False, photo2)
 font1 = ("Times", 25, "bold")
 font2 = ("Roboto Mono", 18)
@@ -19,7 +19,7 @@ f1.propagate(0)
 f1.place(x=0, y=0)
 
 
-img = Image.open("instalogobw.png")
+img = Image.open("images/instalogobw.png")
 img = img.resize((300,90))
 
 photo = ImageTk.PhotoImage(img)
@@ -127,7 +127,17 @@ def secwin():
         l5 = Label(f3, text=inst, font=font2, fg="White", bg="Black")
         l5.place(x=80, y=0)
 
-Button(f1, text="Login", cursor="hand2", command=secwin, border=4, width=10).place(x=480, y=350)
-Button(f1, text="Reset", cursor="hand2", command=clear, border=4, width=10).place(x=620, y=350)
+
+login_but = Image.open("images/login.png")
+login_but = login_but.resize((100,40))
+login_but = ImageTk.PhotoImage(login_but)
+
+reset_but = Image.open("images/reset.png")
+reset_but = reset_but.resize((100,40))
+reset_but = ImageTk.PhotoImage(reset_but)
+
+Button(f1, cursor="hand2", command=secwin, text="Login", image=login_but, bg="black", borderwidth=0, highlightthickness=0).place(x=430, y=350)
+Button(f1, text="Reset", cursor="hand2", command=clear,image=reset_but , bg="black", borderwidth=0, highlightthickness=0).place(x=580, y=350)
+
 
 win1.mainloop()
