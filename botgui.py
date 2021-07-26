@@ -3,6 +3,9 @@ from tkinter import filedialog
 from tkinter import messagebox
 from PIL import Image, ImageTk
 import os
+from time import sleep
+from backend_login import *
+
 
 win1 = Tk()
 win1.title("Log in")
@@ -27,7 +30,6 @@ Label(win1, image=photo, borderwidth=0).place(x=400,y=45)
 
 uname = StringVar()
 password = StringVar()
-
 
 l1 = Label(f1, text='User Name:', font=font2, bg="Black", fg="White")
 l1.place(x=250, y=180)
@@ -72,7 +74,7 @@ def like_comment():
 
 def dialogbox():
     #f3.filename contains the path of the csv/txt file along with the file name
-    f3.filename = filedialog.askopenfilename(initialdir="C:", title="Select a csv/txt File", filetypes=(("csv files", "*.csv"),("txt files", "*.txt")))
+    f3.filename = filedialog.askopenfilename(initialdir="C:", title="Select a csv/txt File", filetypes=(("csv files", ".csv"),("txt files", ".txt")))
     if (len(f3.filename) > 0) and (len(msg.get()) > 0):
         filename = os.path.basename(f3.filename)
         l11 = Label(f3, text=filename, font=font2, bg="Black", fg="White")
@@ -102,30 +104,41 @@ def secwin():
     if len(uname.get())==0 or len(password.get())==0:
         messagebox.showerror("Error", "Please enter details in all the fields.")
     else:
-        global f3, follow_button, like_button, msg_button
-        win2 = Toplevel()
-        win2.title("Menu")
-        win2.geometry('1000x600')
-        win2.maxsize(1000, 600)
-        win2.minsize(1000, 600)
-        win2.iconphoto(False, photo2)
-        f2 = Frame(win2, height=600, width=300, borderwidth = 5, relief = SUNKEN, bg="#FFFAFA")
-        f2.propagate(0)
-        f2.place(x=0, y=0)
-        l4 = Label(f2, text="Menu", font=font1, bg="#FFFAFA")
-        l4.place(x=100, y=0)
-        follow_button = Button(f2, text="Follow", cursor="hand2", command=follow, border=4, width=37, height=3)
-        follow_button.place(x=10, y=100)
-        like_button = Button(f2, text="Like/Comment", cursor="hand2", command=like_comment, border=4, width=37, height = 3)
-        like_button.place(x=10, y=250)
-        msg_button = Button(f2, text="Send a message", cursor="hand2", command=message, border=4, width=37, height = 3)
-        msg_button.place(x=10, y=400)
-        f3 = Frame(win2, height=600, width=700, borderwidth = 5, relief = SUNKEN, bg="Black")
-        f3.propagate(0)
-        f3.place(x=300, y=0)
-        inst = "Please select the desired option from the Menu."
-        l5 = Label(f3, text=inst, font=font2, fg="White", bg="Black")
-        l5.place(x=80, y=0)
+
+        login(uname.get(), password.get())
+
+        if login.valid:
+            
+            global f3, follow_button, like_button, msg_button
+            win2 = Toplevel()
+            win2.title("Menu")
+            win2.geometry('1000x600')
+            win2.maxsize(1000, 600)
+            win2.minsize(1000, 600)
+            win2.iconphoto(False, photo2)
+            f2 = Frame(win2, height=600, width=300, borderwidth = 5, relief = SUNKEN, bg="#FFFAFA")
+            f2.propagate(0)
+            f2.place(x=0, y=0)
+            l4 = Label(f2, text="Menu", font=font1, bg="#FFFAFA")
+            l4.place(x=100, y=0)
+            follow_button = Button(f2, text="Follow", cursor="hand2", command=follow, border=4, width=37, height=3)
+            follow_button.place(x=10, y=100)
+            like_button = Button(f2, text="Like/Comment", cursor="hand2", command=like_comment, border=4, width=37, height = 3)
+            like_button.place(x=10, y=250)
+            msg_button = Button(f2, text="Send a message", cursor="hand2", command=message, border=4, width=37, height = 3)
+            msg_button.place(x=10, y=400)
+            f3 = Frame(win2, height=600, width=700, borderwidth = 5, relief = SUNKEN, bg="Black")
+            f3.propagate(0)
+            f3.place(x=300, y=0)
+            inst = "Please select the desired option from the Menu."
+            l5 = Label(f3, text=inst, font=font2, fg="White", bg="Black")
+            l5.place(x=80, y=0)
+
+        else:
+            uname.set("")
+            password.set("")
+            
+
 
 
 login_but = Image.open("images/login.png")
