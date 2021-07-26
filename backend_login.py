@@ -32,6 +32,4 @@ def login(username, password):
         # pic.click()
 
 
-        sleep(10)
         browser.minimize_window()
-        browser.close()
