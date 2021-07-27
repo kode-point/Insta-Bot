@@ -30,6 +30,3 @@ def login(username, password):
         notnow.click()
         # pic = browser.find_element_by_class_name("kIKUG")
         # pic.click()
-
-
-        browser.minimize_window()
